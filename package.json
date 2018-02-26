@@ -29,7 +29,7 @@
   ],
   "dependencies": {
     "@shopify/polaris": "^1.8.3",
-    "@shopify/shopify-express": "^1.0.0-alpha.6",
+    "@shopify/shopify-express": "theptrk/shopify-express#master",
     "autoprefixer": "^7.1.1",
     "babel-core": "^6.25.0",
     "babel-loader": "^7.0.0",
