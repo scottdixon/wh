@@ -17,6 +17,8 @@ const ShopifyAPIClient = require('shopify-api-node');
 const ShopifyExpress = require('@shopify/shopify-express');
 const {MemoryStrategy} = require('@shopify/shopify-express/strategies');
 
+const client = require('redis').createClient(process.env.REDIS_URL);
+
 const {
   SHOPIFY_APP_KEY,
   SHOPIFY_APP_HOST,
@@ -29,7 +31,7 @@ const shopifyConfig = {
   apiKey: SHOPIFY_APP_KEY,
   secret: SHOPIFY_APP_SECRET,
   scope: ['write_orders, write_products'],
-  shopStore: new MemoryStrategy(),
+  shopStore: new RedisStore({ client }),
   afterAuth(request, response) {
     const { session: { accessToken, shop } } = request;
 
@@ -60,7 +62,7 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(
   session({
-    store: isDevelopment ? undefined : new RedisStore(),
+    store: isDevelopment ? undefined : new RedisStore({ client }),
     secret: SHOPIFY_APP_SECRET,
     resave: true,
     saveUninitialized: false,
