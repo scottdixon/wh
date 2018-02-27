@@ -11,7 +11,7 @@
     "pretty": "prettier --single-quote --trailing-comma es5 --write {client,bin,config,server}{/*,/**/*}.js",
     "precommit": "yarn run pretty",
     "start": "yarn run clean && yarn run build && NODE_ENV=production yarn run go",
-    "heroku-prebuild": "yarn install --production=false",
+    "heroku-prebuild": "rm -rf ./node_modules && yarn install --production=false",
     "postinstall": "NODE_ENV=production webpack --config ./config/webpack.config.js"
   },
   "engines": {
